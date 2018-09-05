@@ -1,0 +1,1 @@
+ UPDATE wp_2Yrby7_posts set guid=REPLACE(guid, 'https://cms-preprod.lab.santech.fr','https://myp-cms-preprod.ingicare.com') WHERE guid LIKE ('https://cms-preprod.lab.santech.fr%');

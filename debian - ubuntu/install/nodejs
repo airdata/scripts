@@ -1,0 +1,28 @@
+#!/bin/bash
+
+# Install NodeJS.
+# https://github.com/joyent/node/wiki/Installing-Node.js-via-package-manager
+
+# Tested on:
+# Ubuntu 12.04
+# Ubuntu 14.04
+
+# Does not work on:
+# Debian 7.0
+
+# Usage:
+# overcast run myInstanceOrCluster install/nodejs
+
+# set -x
+
+if [ "$(id -u)" != "0" ]; then
+   echo "This script must be run as root." 1>&2
+   exit 1
+fi
+
+aptitude -y install python-software-properties
+add-apt-repository ppa:chris-lea/node.js
+apt-get update
+aptitude -y install nodejs
+
+exit 0
