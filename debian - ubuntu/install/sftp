@@ -1,19 +1,4 @@
 #!/bin/bash
-
-# Configure chrooted SFTP.
-
-# Tested on:
-# Debian 7.0
-# Ubuntu 12.04
-# Ubuntu 14.04
-
-# Once configured, users requiring SFTP access must be added to the "sftp" group.
-
-# Usage:
-# overcast run myInstanceOrCluster install/sftp
-# overcast run myInstanceOrCluster add_user --env "username=myuser"
-# overcast run myInstanceOrCluster chroot_user --env "username=myuser"
-
 # set -x
 
 if [ "$(id -u)" != "0" ]; then
