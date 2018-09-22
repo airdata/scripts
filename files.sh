@@ -5,3 +5,6 @@ find /proc/*/fd -ls | grep  '(deleted)'
 
 ##delete logs files last 30 days
 find /var/log -name "*.log" -mtime +30 -exec rm -f {} \;
+
+# cat without dash #
+cat /etc/squid/squid.conf | egrep -v "(^#.*|^$)"
