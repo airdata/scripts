@@ -1,0 +1,46 @@
+#!/bin/bash
+
+# Change SSH listener port.
+
+# Tested on:
+# Debian 7.0
+# Ubuntu 12.04
+# Ubuntu 14.04
+
+# Usage:
+# overcast port myInstanceOrCluster 55522
+
+# set -x
+
+if [ "$(id -u)" != "0" ]; then
+   echo "This script must be run as root." 1>&2
+   exit 1
+fi
+
+if [ -z "$new_ssh_port" ]; then
+  echo "No port defined, no action taken."
+  exit 1
+fi
+
+current_ssh_port=`cat /etc/ssh/sshd_config | grep Port | awk '{ print \$2 }'`
+exposed_ports=`iptables -L -n | grep 'ACCEPT' | grep 'tcp dpt:' | awk '{ print $7 }' | tr -d 'dpt:' | paste -sd ' '`
+
+ssh_port_not_exposed=true
+for exposed_port in $exposed_ports; do
+  if [ "$new_ssh_port" -eq "$exposed_port" ]; then
+    new_ssh_port_not_exposed=false
+  fi
+done
+
+if $new_ssh_port_not_exposed; then
+  echo "New SSH port ($new_ssh_port) not exposed by iptables, no action taken."
+  exit 1
+fi
+
+echo Setting port to $new_ssh_port...
+
+sed -i "s/Port [0-9]*/Port $new_ssh_port/g" /etc/ssh/sshd_config
+
+service ssh restart
+
+exit 0

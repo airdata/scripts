@@ -1,0 +1,12 @@
+###################################################
+# include only filters
+# no wildcards allowed for folders or files
+# all paths relative to the the path being copied
+###################################################
+
+BuildScripts
+externals
+Source
+Platform
+Game.atomic
+Script

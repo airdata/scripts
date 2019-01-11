@@ -1,0 +1,11 @@
+###################################################
+# include only filters
+# no wildcards allowed for folders or files
+# all paths relative to the the path being copied
+###################################################
+
+Build/iOS-Build/bundle
+BuildScripts
+Platform/iOS
+Source
+externals

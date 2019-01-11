@@ -1,0 +1,2 @@
+        sudo iptables -t nat -A PREROUTING -p tcp --dport 6379 -j DNAT --to-destination  173.0.2.104:6379
+        sudo iptables -t nat -A POSTROUTING -p tcp -d 173.0.2.104 --dport 6379 -j SNAT --to-source 173.0.5.11
