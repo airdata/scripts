@@ -1,4 +1,4 @@
-#!/bin/bash
+#!/bin/bash 
 SFTPONLY_GROUP="sftp"
 SFTP_BASE_FOLDER="/srv/sftp"
 UPLOAD_DIR="htdocs"
