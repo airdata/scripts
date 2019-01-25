@@ -1,0 +1,51 @@
+#!/bin/bash
+
+# Install a Discourse Docker container.
+
+# Tested on:
+# Ubuntu 12.04
+# Ubuntu 14.04
+
+# References:
+# https://github.com/discourse/discourse/blob/master/docs/INSTALL-digital-ocean.md
+# https://github.com/eviltrout/discourse-droplet
+
+# Usage:
+# overcast run myInstanceOrCluster install/discourse_docker \
+#   --env "discourseHostname=\"$discourseHostname\" \
+#   discourseDevEmails=\"$discourseDevEmails\" \
+#   discourseSMTPAddress=\"$discourseSMTPAddress\" \
+#   discourseSMTPPort=\"$discourseSMTPPort\" \
+#   discourseSMTPUsername=\"$discourseSMTPUsername\" \
+#   discourseSMTPPassword=\"$discourseSMTPPassword\""
+
+# See also:
+# recipes/discourse-docker
+
+# set -x
+
+if [ "$(id -u)" != "0" ]; then
+   echo "This script must be run as root." 1>&2
+   exit 1
+fi
+
+aptitude install cgroup-lite
+
+mkdir /var/docker
+git clone https://github.com/discourse/discourse_docker.git /var/docker
+cd /var/docker
+cp samples/standalone.yml containers/app.yml
+
+sed -i "s/DISCOURSE_DEVELOPER_EMAILS\: .*/DISCOURSE_DEVELOPER_EMAILS\: \'$discourseDevEmails\'/g" containers/app.yml
+sed -i "s/DISCOURSE_HOSTNAME\: .*/DISCOURSE_HOSTNAME\: \'$discourseHostname\'/g" containers/app.yml
+sed -i "s/DISCOURSE_SMTP_ADDRESS\: .*/DISCOURSE_SMTP_ADDRESS\: \'$discourseSMTPAddress\'/g" containers/app.yml
+sed -i "s/\#\? \?DISCOURSE_SMTP_PORT\: .*/DISCOURSE_SMTP_PORT\: \'$discourseSMTPPort\'/g" containers/app.yml
+sed -i "s/\#\? \?DISCOURSE_SMTP_USER_NAME\: .*/DISCOURSE_SMTP_USER_NAME\: \'$discourseSMTPUsername\'/g" containers/app.yml
+sed -i "s/\#\? \?DISCOURSE_SMTP_PASSWORD\: .*/DISCOURSE_SMTP_PASSWORD\: \'$discourseSMTPPassword\'/g" containers/app.yml
+
+./launcher bootstrap app --skip-prereqs
+
+# Running this separately in recipes/discourse-docker.
+# ./launcher start app --skip-prereqs
+
+exit 0

@@ -1,0 +1,28 @@
+#!/bin/bash
+
+# Install PhantomJS 1.9.7.
+# http://phantomjs.org/download.html
+
+# Tested on:
+# Debian 7.0
+# Ubuntu 12.04
+
+# Usage:
+# overcast run myInstanceOrCluster install/phantomjs
+
+# set -x
+
+if [ "$(id -u)" != "0" ]; then
+   echo "This script must be run as root." 1>&2
+   exit 1
+fi
+
+aptitude -y install libfontconfig
+
+cd /usr/local/share
+wget https://bitbucket.org/ariya/phantomjs/downloads/phantomjs-1.9.7-linux-x86_64.tar.bz2
+tar xvf phantomjs-1.9.7-linux-x86_64.tar.bz2
+rm -f phantomjs-1.9.7-linux-x86_64.tar.bz2
+ln -s /usr/local/share/phantomjs-1.9.7-linux-x86_64/bin/phantomjs /usr/local/bin/phantomjs
+
+exit 0
