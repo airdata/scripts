@@ -1,4 +1,4 @@
-brew cask cleanup
+brew cleanup
 brew upgrade
 brew cleanup -s
 brew cask doctor
