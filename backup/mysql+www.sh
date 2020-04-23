@@ -1,11 +1,4 @@
 #!/bin/bash
-####################################
-#
-# name: Backup script by Leonardo Bujas
-# email: leonardo@locastic.com
-# version: 1.0b
-#
-####################################
 
 ####################################
 #
@@ -21,7 +14,7 @@ DAYS=7 # How many days we want to save backups
 # VHOST SETTINGS
 #
 ####################################
-VHOSTDESTINATION="/storage/backups/vhosts/$TODAY"
+VHOSTDESTINATION="/backups/www/$TODAY"
 VHOSTSOURCEFOLDER="/var/www" # The folder that contains the files that we want to backup
 
 ####################################
@@ -29,13 +22,13 @@ VHOSTSOURCEFOLDER="/var/www" # The folder that contains the files that we want t
 # MYSQL SETTINGS
 #
 ####################################
-MyUSER="DBUSER"  # DB_USERNAME
-MyPASS="DBPASSWORD"  # DB_PASSWORD
-MyHOST="DBHOST"  # DB_HOSTNAME
-MyDEST="/storage/backups/mysql/$TODAY" # Backup Dest directory
+MyUSER="DB_USERNAME"  # DB_USERNAME
+MyPASS="DB_PASSWORD"  # DB_PASSWORD
+MyHOST="DB_HOSTNAME"  # DB_HOSTNAME
+MyDEST="/backups/mysql/$TODAY" # Backup Dest directory
 MYSQL="$(which mysql)" # Linux bin paths, needed for dumps
 MYSQLDUMP="$(which mysqldump)" # Linux bin paths, needed for dumps
-MySKIP="information_schema performance_schema sys mysql" # Skip these DBs when exporting
+MySKIP="information_schema performance_schema sys mysql innodb" # Skip these DBs when exporting
 
 ####################################
 #
