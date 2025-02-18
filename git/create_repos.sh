@@ -2,10 +2,10 @@
 
 # Replace these variables with your GitHub username and personal access token
 USERNAME="airdata"
-TOKEN="GH_TOKEN"
+TOKEN="" #NEED VAR
 
 # List of repository names
-repos=("airdata1" "airdata2" "airdata3")
+repos=("expfeed" "airdata2" "airdata3")
 
 # GitHub API base URL
 API_URL="https://api.github.com/user/repos"
